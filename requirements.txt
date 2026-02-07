@@ -1,0 +1,21 @@
+streamlit
+openai
+tiktoken
+python-dotenv
+google-search-results
+chromadb
+
+# --- ここが重要：互換性のあるバージョンセットを固定 ---
+langchain==0.1.20
+langchain-community==0.0.38
+langchain-openai==0.1.6
+langchain-text-splitters==0.0.1
+langchain-core==0.1.52
+sudachipy
+sudachidict-core
+python-docx
+pymupdf
+docx2txt
+slack_sdk
+rank_bm25
+sudachidict_full
