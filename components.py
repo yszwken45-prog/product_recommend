@@ -110,6 +110,21 @@ def display_product(result):
     # --- 修正ポイント2: .get() を使ってエラーを回避 ---
     # product['id'] ではなく product.get('id', '不明') と書くことで、
     # キーがなくてもエラーにならずに処理を続行できます。
+# --- 在庫状況の判定ロジック ---
+    stock = product.get('stock_status', 'なし')
+    
+    if stock == "残りわずか":
+            stock_label = "⚠️ ご好評につき、在庫数が残りわずかです。購入をご希望の場合、お早目のご注文をおすすめします"
+            stock_color = "orange"
+            is_disabled = False
+    elif stock == "なし":
+            stock_label = "✖ 申し訳ありませんが、本商品は在庫切れとなっています。入荷までもうしばらくお待ちください"
+            stock_color = "red"
+            is_disabled = True # 在庫なしの場合はボタンを無効化
+    else:
+        is_disabled = False
+        
+
     st.success(f"""
         商品名：{product.get('name', '名称未設定')}（商品ID: {product.get('id', 'N/A')}）\n
         価格：{product.get('price', '価格情報なし')}
