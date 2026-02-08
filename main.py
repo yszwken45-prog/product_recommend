@@ -59,10 +59,10 @@ try:
     cn.display_conversation_log()
 except Exception as e:
     logger.error(f"{ct.CONVERSATION_LOG_ERROR_MESSAGE}\n{e}")
-    # st.error(utils.build_error_message(ct.CONVERSATION_LOG_ERROR_MESSAGE))
-    # st.stop()
-    st.error(f"エラーが発生しました: {e}") # これで具体的な原因（KeyErrorなど）がわかります
-    st.write("詳細なログ:", e)
+    st.error(utils.build_error_message(ct.CONVERSATION_LOG_ERROR_MESSAGE))
+    st.stop()
+    # st.error(f"エラーが発生しました: {e}") # これで具体的な原因（KeyErrorなど）がわかります
+    # st.write("詳細なログ:", e)
 
 
 ############################################################
@@ -99,15 +99,17 @@ if chat_message:
     # 3. LLMからの回答表示
     # ==========================================
     with st.chat_message("assistant", avatar=ct.AI_ICON_FILE_PATH):
+        
         try:
             cn.display_product(result)
             
             logger.info({"message": result})
         except Exception as e:
             logger.error(f"{ct.LLM_RESPONSE_DISP_ERROR_MESSAGE}\n{e}")
-            st.error(utils.build_error_message(ct.LLM_RESPONSE_DISP_ERROR_MESSAGE))
-            st.stop()
-
+            # st.error(utils.build_error_message(ct.LLM_RESPONSE_DISP_ERROR_MESSAGE))
+            # st.stop()
+            st.error(f"パース失敗: {e}")
+            st.write("AIの生回答:", result  ) # エラー時に中身を確認
     # ==========================================
     # 4. 会話ログへの追加
     # ==========================================
