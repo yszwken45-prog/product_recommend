@@ -115,10 +115,12 @@ def display_product(result):
     
     if stock == ct.STOCK_FEW:
         # 「残りわずか」：黄色背景 + ⚠️
-        st.warning(icon=ct.ICON_WARNING, message=ct.STOCK_FEW_MESSAGE)
+        # st.warning(icon=ct.ICON_WARNING, message=ct.STOCK_FEW_MESSAGE)
+        st.warning(f"{ct.ICON_WARNING} {ct.STOCK_FEW_MESSAGE}")
     elif stock == ct.STOCK_NONE:
         # 「なし」：赤色背景 + ❗
-        st.error(icon=ct.ICON_ERROR, message=ct.STOCK_NONE_MESSAGE)
+        # st.error(icon=ct.ICON_ERROR, message=ct.STOCK_NONE_MESSAGE)
+        st.error(f"{ct.ICON_ERROR} {ct.STOCK_NONE_MESSAGE}")
 
         # Adding missing indented block for st.success
         st.success(f"""
