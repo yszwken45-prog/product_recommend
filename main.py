@@ -59,8 +59,10 @@ try:
     cn.display_conversation_log()
 except Exception as e:
     logger.error(f"{ct.CONVERSATION_LOG_ERROR_MESSAGE}\n{e}")
-    st.error(utils.build_error_message(ct.CONVERSATION_LOG_ERROR_MESSAGE))
-    st.stop()
+    # st.error(utils.build_error_message(ct.CONVERSATION_LOG_ERROR_MESSAGE))
+    # st.stop()
+    st.error(f"エラーが発生しました: {e}") # これで具体的な原因（KeyErrorなど）がわかります
+    st.write("詳細なログ:", e)
 
 
 ############################################################
