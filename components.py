@@ -114,12 +114,9 @@ def display_product(result):
     stock = product.get('stock_status', 'なし')
     
     if stock == "残りわずか":
-            stock_label = "⚠️ ご好評につき、在庫数が残りわずかです。購入をご希望の場合、お早目のご注文をおすすめします"
-            stock_color = "orange"
-            is_disabled = False
+            st.warning("⚠️ ご好評につき、在庫数が残りわずかです。購入をご希望の場合、お早目のご注文をおすすめします")
     elif stock == "なし":
-            stock_label = "✖ 申し訳ありませんが、本商品は在庫切れとなっています。入荷までもうしばらくお待ちください"
-            stock_color = "red"
+            st.error("❗ 申し訳ありませんが、本商品は在庫切れとなっています。入荷までもうしばらくお待ちください")
             is_disabled = True # 在庫なしの場合はボタンを無効化
     else:
         is_disabled = False
