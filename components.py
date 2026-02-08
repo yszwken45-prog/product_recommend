@@ -110,27 +110,30 @@ def display_product(result):
     # --- 修正ポイント2: .get() を使ってエラーを回避 ---
     # product['id'] ではなく product.get('id', '不明') と書くことで、
     # キーがなくてもエラーにならずに処理を続行できます。
-# --- 在庫状況の判定ロジック ---
-    stock = product.get('stock_status', 'なし')
+# --- 在庫状況の判定（定数を使用） ---
+    stock = product.get('stock_status', ct.STOCK_NONE)
     
-    if stock == "残りわずか":
-            st.warning("⚠️ ご好評につき、在庫数が残りわずかです。購入をご希望の場合、お早目のご注文をおすすめします")
-    elif stock == "なし":
-            st.error("❗ 申し訳ありませんが、本商品は在庫切れとなっています。入荷までもうしばらくお待ちください")
-            is_disabled = True # 在庫なしの場合はボタンを無効化
+    if stock == ct.STOCK_FEW:
+        # 「残りわずか」：黄色背景 + ⚠️
+        st.warning(icon=ct.ICON_WARNING, message=ct.STOCK_FEW_MESSAGE)
+    elif stock == ct.STOCK_NONE:
+        # 「なし」：赤色背景 + ❗
+        st.error(icon=ct.ICON_ERROR, message=ct.STOCK_NONE_MESSAGE)
+
+        # Adding missing indented block for st.success
+        st.success(f"""
+            商品名：{product.get('name', '名称未設定')}（商品ID: {product.get('id', 'N/A')}）\n
+            価格：{product.get('price', '価格情報なし')}
+        """)
     else:
-        is_disabled = False
+
         
 
-    st.success(f"""
-        商品名：{product.get('name', '名称未設定')}（商品ID: {product.get('id', 'N/A')}）\n
-        価格：{product.get('price', '価格情報なし')}
-    """)
-    st.code(f"""
-        商品カテゴリ：{product.get('category', 'その他')}\n
-        メーカー：{product.get('maker', '不明')}\n
-        評価：{product.get('score', '-')}({product.get('review_number', '0')}件)
-    """, language=None, wrap_lines=True)
+        st.code(f"""
+            商品カテゴリ：{product.get('category', 'その他')}\n
+            メーカー：{product.get('maker', '不明')}\n
+            評価：{product.get('score', '-')}({product.get('review_number', '0')}件)
+        """, language=None, wrap_lines=True)
     # 画像パスのチェック
     file_name = product.get('file_name')
     if file_name:
